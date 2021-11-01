@@ -24,7 +24,7 @@ export const postBus: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteBusById: RequestHandler = async (
+export const deleteBus: RequestHandler = async (
   req: Request,
   res: Response
 ) => {

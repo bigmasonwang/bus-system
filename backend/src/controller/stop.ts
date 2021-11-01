@@ -2,7 +2,10 @@ import { Request, RequestHandler, Response } from 'express';
 import logger from '../config/winston';
 import Stop from '../models/Stop';
 
-export const getStopes: RequestHandler = async (req: Request, res: Response) => {
+export const getStops: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const stopes = await Stop.find();
     res.status(200).send(stopes);
@@ -13,24 +16,24 @@ export const getStopes: RequestHandler = async (req: Request, res: Response) => 
 };
 
 export const postStop: RequestHandler = async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { code } = req.body;
   try {
-    const stop = new Stop({ id });
+    const stop = new Stop({ code });
     await stop.save();
-    res.status(201).send(Stop);
+    res.status(201).send(stop);
   } catch (error) {
     logger.error(error);
     res.status(500).send(error);
   }
 };
 
-export const deleteStopById: RequestHandler = async (
+export const deleteStop: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { id } = req.params;
+  const { code } = req.params;
   try {
-    await Stop.deleteOne({ id });
+    await Stop.deleteOne({ code });
     res.status(204).send({});
   } catch (error) {
     logger.error(error);

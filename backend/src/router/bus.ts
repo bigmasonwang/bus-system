@@ -1,5 +1,5 @@
 import express from 'express';
-import { getBuses, postBus, deleteBusById } from '../controller/bus';
+import { getBuses, postBus, deleteBus } from '../controller/bus';
 
 const router = express.Router();
 
@@ -10,5 +10,5 @@ router.get('/', getBuses);
 router.post('/', postBus);
 
 /** DELETE a bus */
-router.delete('/:registration', deleteBusById);
+router.delete('/:registration', deleteBus);
 export default router;
