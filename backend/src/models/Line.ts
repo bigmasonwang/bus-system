@@ -6,12 +6,12 @@ interface IRoutes {
   other: mongoose.Types.ObjectId[];
 }
 interface ILine extends mongoose.Document {
-  name?: string;
+  lineName?: string;
   routes?: IRoutes;
 }
 
 const LineSchema = new mongoose.Schema({
-  name: {
+  lineName: {
     type: String,
     unique: true,
   },
