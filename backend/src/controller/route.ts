@@ -51,6 +51,23 @@ export const deleteRoute: RequestHandler = async (
 ) => {
   const { name } = req.params;
   try {
+    const route = await Route.findOne({ name });
+    if (route) {
+      const { stops } = route;
+      stops?.map(async (stopId) => {
+        console.log(stopId);
+
+        const stop = await Stop.findById(stopId);
+        console.log(stop);
+
+        if (stop?.routes) {
+          stop.routes = stop.routes.filter((r) => !r.equals(route._id));
+          console.log(stop.routes);
+
+          await stop.save();
+        }
+      });
+    }
     await Route.deleteOne({ name });
     res.status(204).send({});
   } catch (error) {
@@ -79,8 +96,14 @@ export const postStopToRoute: RequestHandler = async (
       const stop = await Stop.findOne({ code: stopCode });
       // skip this stop if not exist
       if (stop) {
-        await route.updateOne({ $addToSet: { stops: stop._id } }, { new: true });
-        await stop.updateOne({ $addToSet: { routes: route._id } }, { new: true });
+        await route.updateOne(
+          { $addToSet: { stops: stop._id } },
+          { new: true }
+        );
+        await stop.updateOne(
+          { $addToSet: { routes: route._id } },
+          { new: true }
+        );
       }
     });
 

@@ -69,12 +69,10 @@ export const postRoutesToLine: RequestHandler = async (
     const forwordRoute = await Route.findOne({ name: forwordRouteName });
     if (forwordRoute) {
       line.routes.forward = forwordRoute._id;
-      // await line.updateOne({ 'route.forword': forwordRoute._id });
     }
     const backwordRoute = await Route.findOne({ name: backwordRouteName });
     if (backwordRoute) {
       line.routes.backword = backwordRoute._id;
-      // await line.updateOne({ 'route.backword': backwordRoute._id });
     }
     const newLine = await line.save();
 
