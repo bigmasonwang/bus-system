@@ -39,4 +39,4 @@ Open http://localhost:5000 to view it in the browser.
 
 ### `npm test`
 
-Run basic tests.
+Runs basic tests.
