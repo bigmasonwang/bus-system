@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 
 interface IRoutes {
-  forward: mongoose.Types.ObjectId;
-  return: mongoose.Types.ObjectId;
-  other: mongoose.Types.ObjectId[];
+  forward?: mongoose.Types.ObjectId;
+  backword?: mongoose.Types.ObjectId;
 }
 interface ILine extends mongoose.Document {
-  lineName?: string;
-  routes?: IRoutes;
+  lineName: string;
+  routes: IRoutes;
 }
 
 const LineSchema = new mongoose.Schema({
@@ -16,9 +15,16 @@ const LineSchema = new mongoose.Schema({
     unique: true,
   },
   routes: {
-    forward: { type: mongoose.Schema.Types.ObjectId, ref: 'Stop' },
-    return: { type: mongoose.Schema.Types.ObjectId, ref: 'Stop' },
-    other: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Stop' }],
+    forward: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Stop',
+      default: undefined,
+    },
+    backword: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Stop',
+      default: undefined,
+    },
   },
 });
 
