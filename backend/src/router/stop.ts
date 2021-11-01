@@ -1,10 +1,18 @@
 import express from 'express';
-import { deleteStop, getStops, postStop } from '../controller/stop';
+import {
+  deleteStop,
+  getStopByCode,
+  getStops,
+  postStop,
+} from '../controller/stop';
 
 const router = express.Router();
 
 /** GET all stops */
 router.get('/', getStops);
+
+/** GET a stop by code */
+router.get('/:code', getStopByCode);
 
 /** POST a stop */
 router.post('/', postStop);

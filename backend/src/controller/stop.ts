@@ -2,13 +2,24 @@ import { Request, RequestHandler, Response } from 'express';
 import logger from '../config/winston';
 import Stop from '../models/Stop';
 
-export const getStops: RequestHandler = async (
+export const getStops: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const stopes = await Stop.find();
+    res.status(200).send(stopes);
+  } catch (error) {
+    logger.error(error);
+    res.status(500).send(error);
+  }
+};
+
+export const getStopByCode: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const stopes = await Stop.find();
-    res.status(200).send(stopes);
+    const { code } = req.params;
+    const stop = await Stop.findOne({ code });
+    res.status(200).send(stop);
   } catch (error) {
     logger.error(error);
     res.status(500).send(error);

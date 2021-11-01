@@ -17,8 +17,8 @@ afterAll(async () => {
 });
 
 describe('Set up routes with stops', () => {
-  describe('set stops to a route', () => {
-    it('res state should be 201', async () => {
+  describe('set stops -> route', () => {
+    it('should return 201', async () => {
       const res = await request(app)
         .post('/api/route/Z77')
         .send({
@@ -26,10 +26,25 @@ describe('Set up routes with stops', () => {
         });
       expect(res.statusCode).toBe(201);
     });
-    it('that route should have 3 stops', async () => {
+    it('should have 3 stops', async () => {
       const res = await request(app).get('/api/route/Z77');
       expect(res.statusCode).toBe(200);
       expect(res.body.stops.length).toBe(3);
+    });
+  });
+  describe('set routes => stop', () => {
+    it('should return 201', async () => {
+      const res = await request(app)
+        .post('/api/route/H66')
+        .send({
+          stopCodes: ['B2', 'D5'],
+        });
+      expect(res.statusCode).toBe(201);
+    });
+    it('should connect to 2 routes', async () => {
+      const res = await request(app).get('/api/stop/B2');
+      expect(res.statusCode).toBe(200);
+      expect(res.body.routes.length).toBe(2);
     });
   });
 });
