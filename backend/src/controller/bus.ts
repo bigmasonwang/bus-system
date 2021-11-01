@@ -28,9 +28,9 @@ export const deleteBusById: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { id } = req.params;
+  const { registration } = req.params;
   try {
-    await Bus.deleteOne({ _id: id });
+    await Bus.deleteOne({ registration });
     res.status(204).send({});
   } catch (error) {
     logger.error(error);

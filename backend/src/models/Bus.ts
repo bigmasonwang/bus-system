@@ -13,6 +13,7 @@ const BusSchema = new mongoose.Schema({
   registration: {
     type: String,
     required: true,
+    unique: true,
   },
   schedules: [
     {

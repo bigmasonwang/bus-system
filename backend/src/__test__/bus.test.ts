@@ -37,7 +37,7 @@ describe('Bus CRUD', () => {
         registration: 'ABC-111',
       });
       const deletedBus = await request(app).delete(
-        `/api/bus/${newBus.body._id}`
+        `/api/bus/${newBus.body.registration}`
       );
       expect(deletedBus.statusCode).toBe(204);
       expect(deletedBus.body).toStrictEqual({});

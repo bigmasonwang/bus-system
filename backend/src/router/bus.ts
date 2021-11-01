@@ -10,5 +10,5 @@ router.get('/', getBuses);
 router.post('/', postBus);
 
 /** DELETE a bus */
-router.delete('/:id', deleteBusById);
+router.delete('/:registration', deleteBusById);
 export default router;

@@ -9,6 +9,7 @@ const RouteSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   stops: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Stop' }],
 });

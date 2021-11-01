@@ -9,6 +9,7 @@ const StopSchema = new mongoose.Schema({
   code: {
     type: String,
     required: true,
+    unique: true,
   },
   routes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Route' }],
 });

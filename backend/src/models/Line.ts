@@ -13,6 +13,7 @@ interface ILine extends mongoose.Document {
 const LineSchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
   },
   routes: {
     forward: { type: mongoose.Schema.Types.ObjectId, ref: 'Stop' },
