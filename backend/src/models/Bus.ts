@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 interface ISchedul {
-  line: mongoose.Types.ObjectId;
-  start: Date;
+  line?: mongoose.Types.ObjectId;
+  start?: string;
 }
 interface IBus extends mongoose.Document {
   registration: string;
-  schedules?: ISchedul[];
+  schedules: ISchedul[];
 }
 
 const BusSchema = new mongoose.Schema({
@@ -15,12 +15,15 @@ const BusSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  schedules: [
-    {
-      line: { type: mongoose.Schema.Types.ObjectId, ref: 'Line' },
-      start: Date,
-    },
-  ],
+  schedules: {
+    type: [
+      {
+        line: { type: mongoose.Schema.Types.ObjectId, ref: 'Line' },
+        start: String,
+      },
+    ],
+    default: [],
+  },
 });
 
 const Bus = mongoose.model<IBus>('bus', BusSchema);
